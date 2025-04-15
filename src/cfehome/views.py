@@ -1,9 +1,39 @@
 import locale
-
 from . import renderers
+from django.shortcuts import render
 
 
-def invoice_view(request):
+def index(request):   
+    return render(
+        request,
+        "index.html",
+        {
+            "foo": "bar",
+        },
+        content_type="application/xhtml+xml",
+    )
+
+def invoice_view_html(request):
+    context = {
+        "bill_to": "Pedro Kuhn",
+        "invoice_number": "0354784FERS",
+        "amount": 35_000,
+        "date": "2025-04-14",
+    }
+    return renderers.render_to_pdf("pdfs/invoice.html", context)
+
+def invoice_view_csv(request):
+    context = {
+        "bill_to": "Pedro Kuhn",
+        "invoice_number": "0354784FERS",
+        "amount": 35_000,
+        "date": "2025-04-14",
+    }
+    return renderers.render_to_pdf("pdfs/invoice.html", context)
+
+
+
+def invoice_view_pdf(request):
     context = {
         "bill_to": "Pedro Kuhn",
         "invoice_number": "0354784FERS",

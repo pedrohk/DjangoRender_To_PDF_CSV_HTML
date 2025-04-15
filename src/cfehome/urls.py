@@ -2,7 +2,7 @@
 URL configuration for cfehome project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+    https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -20,8 +20,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("html/", views.invoice_view),
-    path("html/pdf/", views.advanced_pdf_view),
-     path("html/csv/", views.invoice_view),
+    path("", views.index),
+    path("html/html", views.invoice_view_html, name="htmlpage"),
+    path("html/pdf/", views.invoice_view_pdf, name="pdfpage"),
+    path("html/csv/", views.invoice_view_csv, name="csvpage"),
     path("admin/", admin.site.urls),
 ]

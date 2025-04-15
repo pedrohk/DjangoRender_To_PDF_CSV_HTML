@@ -1,2 +1,5 @@
 Django
 xhtml2pdf
+djangorestframework
+markdown
+django-filter
