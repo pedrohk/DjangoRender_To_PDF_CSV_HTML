@@ -1,5 +1,10 @@
+import csv
 import locale
+from django.template import loader
+
+from django.http import *
 from . import renderers
+
 from django.shortcuts import render
 
 
@@ -10,17 +15,18 @@ def index(request):
         {
             "foo": "bar",
         },
-        content_type="application/xhtml+xml",
+        content_type="application/xhtml+xml",        
     )
 
-def invoice_view_html(request):
-    context = {
-        "bill_to": "Pedro Kuhn",
-        "invoice_number": "0354784FERS",
-        "amount": 35_000,
-        "date": "2025-04-14",
-    }
-    return renderers.render_to_pdf("pdfs/invoice.html", context)
+def invoice_view_html(request):    
+        context = {
+            "bill_to": "Pedro Kuhn",
+            "invoice_number": "0354784FERS",
+            "amount": 35_000,
+            "date": "2025-04-14",
+        }       
+        return render(request, 'pdfs/invoice_html.html', context=context)
+   
 
 def invoice_view_csv(request):
     context = {
@@ -29,7 +35,17 @@ def invoice_view_csv(request):
         "amount": 35_000,
         "date": "2025-04-14",
     }
-    return renderers.render_to_pdf("pdfs/invoice.html", context)
+   # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="myTemplate.csv"'},
+    )
+
+    writer = csv.writer(response)    
+    writer.writerow(["bill_to", "invoice_number", "amount", "date"])
+    writer.writerow(['Pedro Kuhn', "0354784FERS", 35000, "2025-04-14"])
+
+    return response
 
 
 
@@ -40,7 +56,7 @@ def invoice_view_pdf(request):
         "amount": 35_000,
         "date": "2025-04-14",
     }
-    return renderers.render_to_pdf("pdfs/invoice.html", context)
+    return renderers.render_to_pdf("pdfs/invoice_pdf.html", context)
 
 
 def advanced_pdf_view(request):
@@ -53,9 +69,9 @@ def advanced_pdf_view(request):
         "date": "2025-04-14",
         "pdf_title": f"Invoice #{invoice_number}",
     }
-    response = renderers.render_to_pdf("pdfs/invoice.html", context)
+    response = renderers.render_to_pdf("pdfs/invoice_pdf.html", context)
     if response.status_code == 404:
-        raise HTTP404("Invoice not found")
+        raise Http404("Invoice not found")
 
     filename = f"Invoice_{invoice_number}.pdf"
     """
