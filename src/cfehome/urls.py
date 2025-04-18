@@ -21,8 +21,8 @@ from . import views
 
 urlpatterns = [
     path("", views.index),
-    path("html", views.invoice_view_html, name="htmlpage"),
-    path("pdf", views.invoice_view_pdf, name="pdfpage"),
-    path("csv", views.invoice_view_csv, name="csvpage"),
-    path("admin/", admin.site.urls),
+    path("html/", views.invoice_view_html, name="htmlpage"),
+    path("pdf/", views.invoice_view_pdf, name="pdfpage"),
+    path("csv/", views.invoice_view_csv, name="csvpage"),
+    path("admin/", admin.site.urls),    
 ]
