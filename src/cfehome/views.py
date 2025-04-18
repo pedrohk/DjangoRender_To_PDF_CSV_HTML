@@ -86,4 +86,3 @@ def advanced_pdf_view(request):
         content = f"attachment; filename={filename}"
     response["Content-Disposition"] = content
     return response
-    return response
