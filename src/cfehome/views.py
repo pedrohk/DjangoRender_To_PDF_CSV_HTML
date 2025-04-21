@@ -18,7 +18,7 @@ def invoice_view_html(request):
             "amount": 35_000,
             "date": "2025-04-14",
         }       
-        return render(request, 'pdfs/invoice_html.html', context)
+        return render(request, 'renderer/invoice_html.html', context)
 
    
 
@@ -50,7 +50,7 @@ def invoice_view_pdf(request):
         "amount": 35_000,
         "date": "2025-04-14",
     }
-    return renderers.render_to_pdf("pdfs/invoice_pdf.html", context)
+    return renderers.render_to_pdf("renderer/invoice_pdf.html", context)
 
 
 def advanced_pdf_view(request):
@@ -63,7 +63,7 @@ def advanced_pdf_view(request):
         "date": "2025-04-14",
         "pdf_title": f"Invoice #{invoice_number}",
     }
-    response = renderers.render_to_pdf("pdfs/invoice_pdf.html", context)
+    response = renderers.render_to_pdf("renderer/invoice_pdf.html", context)
     if response.status_code == 404:
         raise Http404("Invoice not found")
 
