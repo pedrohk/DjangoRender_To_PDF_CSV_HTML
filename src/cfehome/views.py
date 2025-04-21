@@ -9,14 +9,7 @@ from django.shortcuts import render
 
 
 def index(request):   
-    return render(
-        request,
-        "index.html",
-        {
-            "foo": "bar",
-        },
-        content_type="application/xhtml+xml",        
-    )
+    return render(request, 'index.html')
 
 def invoice_view_html(request):    
         context = {
