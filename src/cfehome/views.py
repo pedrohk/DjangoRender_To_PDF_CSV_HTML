@@ -18,7 +18,8 @@ def invoice_view_html(request):
             "amount": 35_000,
             "date": "2025-04-14",
         }       
-        return render(request, 'pdfs/invoice_html.html', context=context)
+        return render(request, 'pdfs/invoice_html.html', context)
+
    
 
 def invoice_view_csv(request):
