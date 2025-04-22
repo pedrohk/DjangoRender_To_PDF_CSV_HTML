@@ -36,8 +36,8 @@ def invoice_view_csv(request):
     )
 
     writer = csv.writer(response)    
-    writer.writerow(["bill_to", "invoice_number", "amount", "date"])
-    writer.writerow(['Pedro Kuhn', "0354784FERS", 35000, "2025-04-14"])
+    writer.writerow(["bill_to" ';' "invoice_number" ';' "amount" ';' "date"])
+    writer.writerow(['Pedro Kuhn' ';' "0354784FERS" ';' '35.000' ';' "2025-04-14"])
 
     return response
 
